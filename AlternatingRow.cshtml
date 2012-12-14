@@ -1,0 +1,28 @@
+﻿@{
+    var db = Database.Open("Northwind");
+    var data = db.Query("SELECT EmployeeID, TitleOfCourtesy, FirstName, LastName FROM Employees");
+    var people = data.Select((person, index) => new {Index = index, Person = person});
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <style>
+            #content { width: 400px; font: 0.8em Arial; }
+            .even { background-color:  #dcf1b8; }
+            .odd { background-color: #f4ffe1; }
+        </style>
+    </head>
+    <body>
+        <div id="content">
+        @foreach(var record in people){
+            <div class="@(record.Index % 2 == 0 ? "even" : "odd")">
+                @record.Person.TitleOfCourtesy @record.Person.FirstName @record.Person.LastName
+            </div>
+        }
+        </div>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+﻿@{
+    var disabled = Request["toggle"] == "on";
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        <form method="post">
+            <input type="checkbox" name="toggle" checked="@disabled" />
+            <input type="text" name="text" disabled="@disabled" />
+            <input type="submit" />
+        </form>
+    </body>
+</html>

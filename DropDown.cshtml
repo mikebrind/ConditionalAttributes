@@ -1,0 +1,32 @@
+﻿@{
+    var db = Database.Open("Northwind");
+    var id = UrlData[0].IsEmpty() ? 1 : UrlData[0].AsInt();
+    var product = db.QuerySingle("SELECT ProductName, CategoryId from Products WHERE ProductId = @0", id);
+    var categories = db.Query("SELECT CategoryId, CategoryName FROM Categories");
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+    </head>
+    <body>
+        <div>
+            @product.ProductName
+            <select name="CategoryId">
+                @foreach(var category in categories){
+                    <option value="@category.CategoryId" selected="@Selected(product.CategoryId, category.CategoryId)">
+                        @category.CategoryName
+                     </option>
+                }
+            </select>
+        </div>
+    </body>
+</html>
+@functions {
+    public static bool Selected(int a, int b){
+        return a == b;
+    }
+}
